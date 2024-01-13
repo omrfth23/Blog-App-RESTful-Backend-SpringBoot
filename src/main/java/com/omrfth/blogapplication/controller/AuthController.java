@@ -1,5 +1,6 @@
 package com.omrfth.blogapplication.controller;
 
+import com.omrfth.blogapplication.dto.JWTAuthResponse;
 import com.omrfth.blogapplication.dto.LoginDto;
 import com.omrfth.blogapplication.dto.RegisterDto;
 import com.omrfth.blogapplication.service.AuthService;
@@ -19,8 +20,13 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping(value = {"/login","/signin"})
-    public ResponseEntity<String> login(@RequestBody LoginDto loginDto){
-        return ResponseEntity.ok(authService.login(loginDto));
+    public ResponseEntity<JWTAuthResponse> login(@RequestBody LoginDto loginDto){
+        String token = authService.login(loginDto);
+
+        JWTAuthResponse jwtAuthResponse = new JWTAuthResponse();
+        jwtAuthResponse.setAccessToken(token);
+
+        return new ResponseEntity<>(jwtAuthResponse, HttpStatus.OK);
     }
 
     @PostMapping(value = {"/register","/signup"})

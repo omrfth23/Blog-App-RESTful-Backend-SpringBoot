@@ -7,6 +7,7 @@ import com.omrfth.blogapplication.model.Role;
 import com.omrfth.blogapplication.model.User;
 import com.omrfth.blogapplication.repository.RoleRepository;
 import com.omrfth.blogapplication.repository.UserRepository;
+import com.omrfth.blogapplication.security.JwtTokenProvider;
 import com.omrfth.blogapplication.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -29,6 +30,7 @@ public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
     @Override
     public String login(LoginDto loginDto) {
 
@@ -36,7 +38,10 @@ public class AuthServiceImpl implements AuthService {
                 loginDto.getUsernameOrEmail(),loginDto.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return "User Logged-in Successfully";
+
+        String token = jwtTokenProvider.generateToken(authentication);
+
+        return token;
     }
 
     @Override
