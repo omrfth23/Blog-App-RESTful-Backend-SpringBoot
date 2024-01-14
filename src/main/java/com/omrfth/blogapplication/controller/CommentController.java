@@ -2,6 +2,7 @@ package com.omrfth.blogapplication.controller;
 
 import com.omrfth.blogapplication.dto.CommentDto;
 import com.omrfth.blogapplication.service.CommentService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

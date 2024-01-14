@@ -1,0 +1,15 @@
+version: '3'
+services:
+  your-app:
+    image: springboot-blog-app
+    ports:
+      - "8080:8080"
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: springstudent
+      MYSQL_DATABASE: myblog
+      MYSQL_USER: springstudent
+      MYSQL_PASSWORD: springstudent
+    ports:
+      - "8081:8081"

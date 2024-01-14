@@ -2,6 +2,8 @@ package com.omrfth.blogapplication.controller;
 
 import com.omrfth.blogapplication.dto.PostDto;
 import com.omrfth.blogapplication.service.PostService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,7 @@ public class PostController {
 
     private final PostService postService;
 
+    @SecurityRequirement(name = "Bear Auth")
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<PostDto> createPost(@Valid @RequestBody PostDto postDto) {
@@ -38,6 +41,7 @@ public class PostController {
         return new ResponseEntity<>(postService.getPostById(id), HttpStatus.OK);
     }
 
+    @SecurityRequirement(name = "Bear Auth")
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<PostDto> updatePost(@Valid @PathVariable(name = "id") long id, @RequestBody PostDto postDto) {
@@ -46,6 +50,7 @@ public class PostController {
        return new ResponseEntity<>(postResponse, HttpStatus.OK);
     }
 
+    @SecurityRequirement(name = "Bear Auth")
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletePostById(@PathVariable(name = "id") long id) {
@@ -53,4 +58,6 @@ public class PostController {
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+
 }

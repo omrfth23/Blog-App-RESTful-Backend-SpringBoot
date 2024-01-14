@@ -1,5 +1,6 @@
 package com.omrfth.blogapplication.dto;
 
+import com.omrfth.blogapplication.model.Category;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -10,6 +11,7 @@ import java.util.Set;
 @Data
 public class PostDto {
     private long id;
+
 
     @NotEmpty(message = "Title cannot be empty")
     @Size(min = 5, message = "Title should have at least 5 characters")
@@ -23,4 +25,7 @@ public class PostDto {
     private String content;
 
     private List<CommentDto> comments;
+
+    private long category_id;
+
 }
